@@ -1,0 +1,11 @@
+{
+  "title": "unis/estgio/emprego",
+  "description": "Connects students with internships and job opportunities by linking them directly to companies seeking talent through an intuitive web platform.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

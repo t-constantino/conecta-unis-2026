@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title desc">
+  <title id="title">Retrato ilustrado de Júlia Mendes</title>
+  <desc id="desc">Avatar criado por inteligência artificial de uma jovem universitária sorrindo.</desc>
+  <defs>
+    <linearGradient id="background" x1="54" y1="26" x2="342" y2="382" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DCE7FF"/>
+      <stop offset="1" stop-color="#8EB0FF"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="121" y1="291" x2="282" y2="396" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A5CFF"/>
+      <stop offset="1" stop-color="#0A2463"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="127" y1="72" x2="279" y2="284" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2B1A18"/>
+      <stop offset="1" stop-color="#0A0F1E"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0A2463" flood-opacity=".18"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="400" rx="72" fill="url(#background)"/>
+  <circle cx="335" cy="66" r="46" fill="#FFFFFF" opacity=".28"/>
+  <circle cx="48" cy="266" r="72" fill="#FFFFFF" opacity=".16"/>
+
+  <g filter="url(#softShadow)">
+    <path d="M82 400c8-79 53-122 118-122s110 43 118 122H82Z" fill="url(#shirt)"/>
+    <path d="M168 263h64v60c-8 13-20 20-32 20s-24-7-32-20v-60Z" fill="#C98768"/>
+    <path d="M116 169c0-74 35-113 86-113 55 0 91 39 91 115v85c0 35-20 57-52 57H165c-31 0-49-22-49-57v-87Z" fill="url(#hair)"/>
+    <path d="M145 157c0-51 23-82 57-82 35 0 61 31 61 82v42c0 51-27 87-62 87-34 0-56-36-56-87v-42Z" fill="#D99A79"/>
+    <path d="M143 174c0-53 20-99 61-99 32 0 53 29 59 67-27-4-54-18-72-39-9 25-25 45-48 58v13Z" fill="url(#hair)"/>
+    <path d="M128 174c-15 2-21 14-18 31 3 18 14 28 30 25l-12-56Zm145 0c15 2 21 14 18 31-3 18-14 28-30 25l12-56Z" fill="#D99A79"/>
+    <path d="M163 184c8-7 19-7 27 0" fill="none" stroke="#6B4035" stroke-width="5" stroke-linecap="round"/>
+    <path d="M215 184c8-7 19-7 27 0" fill="none" stroke="#6B4035" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="177" cy="194" rx="5" ry="7" fill="#201614"/>
+    <ellipse cx="229" cy="194" rx="5" ry="7" fill="#201614"/>
+    <path d="M202 197c-1 9-3 18-7 26 5 4 11 5 17 1" fill="none" stroke="#B8755C" stroke-width="4" stroke-linecap="round"/>
+    <path d="M176 238c15 17 38 17 53 0-16 6-37 6-53 0Z" fill="#8D3D48"/>
+    <path d="M184 240c11 7 27 7 38 0" fill="none" stroke="#F7D7CE" stroke-width="5" stroke-linecap="round"/>
+    <path d="M151 281c8 24 25 38 49 42l-27 36-42-61 20-17Zm98 0c-8 24-25 38-49 42l27 36 42-61-20-17Z" fill="#FFFFFF" opacity=".94"/>
+  </g>
+</svg>
