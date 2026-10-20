@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'company-login' | 'publish'
 
 interface Props {
@@ -52,6 +54,45 @@ const testimonials = [
 ]
 
 export default function LandingPage({ onNavigate }: Props) {
+  const [loading, setLoading] = useState(false);
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const dados = {
+      nome: formData.get('nome'),
+      email: formData.get('email'),
+      mensagem: formData.get('mensagem'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dados),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Mensagem enviada com sucesso!');
+        form.reset();
+      } else {
+        alert('Erro ao enviar: ' + (result.error || 'Tente novamente.'));
+      }
+    } catch (err) {
+      alert('Erro de conexão com o servidor.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="overflow-x-hidden">
       {/* NAV */}
@@ -60,6 +101,7 @@ export default function LandingPage({ onNavigate }: Props) {
         <span className="text-lg font-bold tracking-tight" style={{ color: 'var(--color-background)', fontFamily: 'var(--font-display)' }}>
           Conecta<span style={{ color: 'var(--color-accent)' }}>Unis</span>
         </span>
+
         <div className="hidden md:flex items-center gap-6 text-sm" style={{ color: 'var(--color-muted)' }}>
           <button onClick={() => onNavigate('jobs')} className="hover:text-white transition-colors">Vagas</button>
           <button className="hover:text-white transition-colors">Empresas</button>
@@ -217,6 +259,68 @@ export default function LandingPage({ onNavigate }: Props) {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CONTACT FORM SECTION */}
+      <section className="py-24 px-8 md:px-16 max-w-4xl mx-auto">
+        <div className="rounded-3xl p-8 md:p-12 border shadow-sm" style={{ borderColor: 'var(--color-border)', background: 'var(--color-card)' }}>
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <span className="text-xs tracking-widest uppercase px-3 py-1 rounded-full border mb-4 inline-block font-mono"
+              style={{ borderColor: 'var(--color-accent)', color: 'var(--color-accent)' }}>
+              Fale Conosco
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2" style={{ fontFamily: 'var(--font-display)' }}>
+              Entre em contato
+            </h2>
+            <p className="text-sm mt-3" style={{ color: 'var(--color-muted-foreground)' }}>
+              Tem dúvidas ou quer trazer sua empresa para a Conecta Unis? Mande sua mensagem!
+            </p>
+          </div>
+
+          <form onSubmit={handleContactSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--color-foreground)' }}>Nome</label>
+              <input
+                type="text"
+                name="nome"
+                required
+                placeholder="Seu nome completo"
+                className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-colors focus:border-blue-600"
+                style={{ borderColor: 'var(--color-border)', background: 'var(--color-background)', color: 'var(--color-foreground)' }}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--color-foreground)' }}>E-mail</label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="seu.email@exemplo.com"
+                className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-colors focus:border-blue-600"
+                style={{ borderColor: 'var(--color-border)', background: 'var(--color-background)', color: 'var(--color-foreground)' }}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--color-foreground)' }}>Mensagem</label>
+              <textarea
+                name="mensagem"
+                required
+                rows={4}
+                placeholder="Escreva sua mensagem aqui..."
+                className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-colors focus:border-blue-600 resize-none"
+                style={{ borderColor: 'var(--color-border)', background: 'var(--color-background)', color: 'var(--color-foreground)' }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-4 rounded-xl font-semibold text-base transition-all hover:opacity-90 disabled:opacity-50"
+              style={{ background: 'var(--color-accent)', color: '#fff' }}
+            >
+              {loading ? 'Enviando...' : 'Enviar mensagem'}
+            </button>
+          </form>
         </div>
       </section>
 
