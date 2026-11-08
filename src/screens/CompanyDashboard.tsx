@@ -91,7 +91,7 @@ const NAV_ITEMS: { key: Section; label: string; icon: string }[] = [
 
 // ── titles per section ────────────────────────────────────────────────────────
 const SECTION_TITLE: Record<Section, string> = {
-  dashboard: 'Dashboard de Recrutamento',
+  dashboard: 'Painel de Recrutamento',
   vagas: 'Minhas Vagas',
   candidatos: 'Candidatos',
   mensagens: 'Mensagens',
