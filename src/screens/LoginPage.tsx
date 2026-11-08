@@ -21,11 +21,42 @@ export default function LoginPage({ onNavigate, role }: Props) {
 
   const isLogin = mode === 'login'
 
-  function handleSubmit() {
+async function handleSubmit() {
+    // Se for cadastro de aluno, envia para a API que criamos
+    if (!isLogin && role === 'aluno') {
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nome_completo: name,
+            universidade: university,
+            curso: curso,
+            email: email,
+            senha: password
+          })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          alert(result.message || 'Erro ao realizar cadastro.');
+          return;
+        }
+
+        alert('Conta criada com sucesso!');
+        onNavigate('profile');
+      } catch (error) {
+        alert('Erro de conexão com o servidor.');
+      }
+      return;
+    }
+
+    // Fluxo padrão existente para login ou empresas
     if (role === 'empresa') {
-      onNavigate('dashboard')
+      onNavigate('dashboard');
     } else {
-      onNavigate('profile')
+      onNavigate('profile');
     }
   }
 
