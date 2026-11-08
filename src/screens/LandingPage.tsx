@@ -133,7 +133,7 @@ export default function LandingPage({ onNavigate }: Props) {
             Seu primeiro emprego começa <em>aqui.</em>
           </h1>
           <p className="text-lg mb-10 leading-relaxed max-w-md" style={{ color: 'var(--color-muted)' }}>
-            A Conecta Unis conecta universitários brasileiros às melhores oportunidades de estágio e emprego — com transparência, agilidade e sem burocracia.
+            A Conecta Unis conecta seus alunos às melhores oportunidades de estágio e emprego — com transparência, agilidade e sem burocracia.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <button onClick={() => onNavigate('jobs')}
