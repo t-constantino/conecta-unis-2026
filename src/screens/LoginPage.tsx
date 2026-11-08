@@ -186,7 +186,7 @@ export default function LoginPage({ onNavigate, role }: Props) {
               ? 'Entre com suas credenciais para continuar.'
               : role === 'aluno'
               ? 'Gratuito para estudantes universitários.'
-              : 'Acesso ao maior banco de talentos universitários do Brasil.'}
+              : 'Acesso ao maior banco de talentos universitários da Unis.'}
           </p>
 
           <div className="flex flex-col gap-4">
@@ -198,13 +198,13 @@ export default function LoginPage({ onNavigate, role }: Props) {
                     placeholder="Julie Costa" className="field-input" />
                 </Field>
                 <div className="grid grid-cols-2 gap-3">
-                  <Field label="Universidade">
+                  <Field label="Unidade">
                     <input value={university} onChange={(e) => setUniversity(e.target.value)}
-                      placeholder="USP" className="field-input" />
+                      placeholder="Unis São Lourenço" className="field-input" />
                   </Field>
                   <Field label="Curso">
                     <input value={course} onChange={(e) => setCourse(e.target.value)}
-                      placeholder="Ciência da Computação" className="field-input" />
+                      placeholder="Análise e Desenvolvimento de Sistemas" className="field-input" />
                   </Field>
                 </div>
               </>
