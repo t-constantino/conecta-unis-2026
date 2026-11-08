@@ -9,7 +9,7 @@ const skills = ['React', 'TypeScript', 'Python', 'SQL', 'Git', 'Figma', 'Node.js
 
 const experiences = [
   {
-    role: 'Monitoria de Cálculo Numérico', org: 'Universidade de São Paulo', period: 'Mar 2024 – Dez 2024',
+    role: 'Monitoria de Cálculo Numérico', org: 'Faculdade Unis São Lourenço', period: 'Mar 2024 – Dez 2024',
     desc: 'Auxílio a 40+ alunos, elaboração de listas de exercícios e revisão de provas.',
   },
   {
