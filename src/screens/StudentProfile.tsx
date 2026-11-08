@@ -9,7 +9,7 @@ const skills = ['React', 'TypeScript', 'Python', 'SQL', 'Git', 'Figma', 'Node.js
 
 const experiences = [
   {
-    role: 'Monitoria de Cálculo Numérico', org: 'Universidade de São Paulo', period: 'Mar 2024 – Dez 2024',
+    role: 'Monitoria de Cálculo Numérico', org: 'Faculdade Unis São Lourenço', period: 'Mar 2024 – Dez 2024',
     desc: 'Auxílio a 40+ alunos, elaboração de listas de exercícios e revisão de provas.',
   },
   {
@@ -45,15 +45,28 @@ interface ProfileData {
 
 const DEFAULT_PROFILE: ProfileData = {
   name: 'Julie Costa',
-  course: 'Ciência da Computação',
-  university: 'USP',
-  semester: '7.º semestre',
-  location: 'São Paulo, SP',
+  course: 'Análise e Desenvolvimento de Sistemas',
+  university: 'Unis',
+  semester: '4.º semestre',
+  location: 'São Lourenço, MG',
   about: 'Desenvolvedora apaixonada por criar produtos que impactam pessoas. Tenho experiência em desenvolvimento web fullstack, com foco em React e Node.js. Busco uma oportunidade de estágio onde possa crescer e contribuir em projetos desafiadores.',
 }
 
-function loadProfile() {
+function loadProfile(): ProfileData {
   try {
+    // 1. Tenta carregar os dados vindos direto do cadastro feito no LoginPage
+    const registeredUser = localStorage.getItem('conecta_user')
+    if (registeredUser) {
+      const parsedUser = JSON.parse(registeredUser)
+      return {
+        ...DEFAULT_PROFILE,
+        name: parsedUser.nome_completo || DEFAULT_PROFILE.name,
+        university: parsedUser.universidade || DEFAULT_PROFILE.university,
+        course: parsedUser.curso || DEFAULT_PROFILE.course,
+      }
+    }
+
+    // 2. Se não houver cadastro recente, carrega do perfil editado anteriormente
     const stored = localStorage.getItem(PROFILE_STORAGE_KEY)
     if (!stored) return DEFAULT_PROFILE
     const parsed = JSON.parse(stored) as Partial<ProfileData>
@@ -179,9 +192,9 @@ export default function StudentProfile({ onNavigate }: Props) {
                 <div
                   className="w-20 h-20 shrink-0 rounded-2xl border-4 flex items-center justify-center text-xl font-bold"
                   style={{ borderColor: 'var(--color-card)', background: 'var(--color-accent)', color: 'var(--color-accent-foreground)' }}
-                  aria-label="Foto de perfil de Julie Costa"
+                  aria-label={`Foto de perfil de ${profile.name}`}
                 >
-                  JC
+                  {profile.name.slice(0, 2).toUpperCase()}
                 </div>
               ) : (
                 <img
@@ -307,8 +320,8 @@ export default function StudentProfile({ onNavigate }: Props) {
 
               {/* Education */}
               <Section title="Formação">
-                <div className="text-sm font-semibold">Bacharelado em Ciência da Computação</div>
-                <div className="text-sm mt-0.5" style={{ color: 'var(--color-accent)' }}>Universidade de São Paulo</div>
+                <div className="text-sm font-semibold">Bacharelado em {profile.course}</div>
+                <div className="text-sm mt-0.5" style={{ color: 'var(--color-accent)' }}>{profile.university}</div>
                 <div className="text-xs mt-1" style={{ color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>
                   2022 – 2026 · CR 8.4
                 </div>
@@ -355,3 +368,214 @@ export default function StudentProfile({ onNavigate }: Props) {
                     style={{ background: 'var(--color-accent)', color: 'var(--color-accent-foreground)' }}
                   >
                     Acessar sala on-line
+                  </button>
+                </div>
+              </Section>
+
+              {/* Profile completeness */}
+              <Section title="Completude do perfil">
+                <div className="mb-2 flex justify-between text-sm">
+                  <span>{videoResume ? '100%' : '85%'}</span>
+                  <span style={{ color: 'var(--color-muted-foreground)' }}>{videoResume ? 'Completo' : 'Muito bom'}</span>
+                </div>
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-secondary)' }}>
+                  <div className="h-full rounded-full transition-all" style={{ width: videoResume ? '100%' : '85%', background: 'var(--color-accent)' }} />
+                </div>
+                {!videoResume && (
+                  <p className="text-xs mt-3" style={{ color: 'var(--color-muted-foreground)' }}>
+                    O vídeo é opcional, mas pode completar sua apresentação.
+                  </p>
+                )}
+              </Section>
+            </div>
+          </div>
+        )}
+
+        {tab === 'candidaturas' && (
+          <div className="flex flex-col gap-3">
+            {applications.map((a) => (
+              <div key={a.role} className="flex items-center gap-4 p-5 rounded-2xl border"
+                style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
+                <div className="flex-1">
+                  <div className="font-semibold text-sm">{a.role}</div>
+                  <div className="text-xs mt-0.5" style={{ color: 'var(--color-muted-foreground)' }}>{a.company}</div>
+                  <div className="flex gap-2 mt-2 flex-wrap">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: 'var(--color-secondary)', color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>
+                      Desafio: {a.challenge}
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(26,92,255,0.08)', color: 'var(--color-accent)', fontFamily: 'var(--font-mono)' }}>
+                      {a.feedback}
+                    </span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="inline-block text-xs font-bold px-3 py-1 rounded-full"
+                    style={{ background: a.color + '20', color: a.color }}>
+                    {a.status}
+                  </span>
+                  <div className="text-xs mt-1" style={{ color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>{a.date}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {editing && (
+        <div
+          className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6"
+          style={{ background: 'rgba(10,15,30,0.6)' }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="edit-profile-title"
+        >
+          <form
+            onSubmit={saveProfile}
+            className="w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border p-6"
+            style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}
+          >
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <h2 id="edit-profile-title" className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
+                  Editar perfil
+                </h2>
+                <p className="text-sm mt-1" style={{ color: 'var(--color-muted-foreground)' }}>
+                  Atualize as informações que as empresas verão.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                className="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+                style={{ background: 'var(--color-secondary)', color: 'var(--color-foreground)' }}
+                aria-label="Fechar edição"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 p-4 rounded-2xl mb-5" style={{ background: 'var(--color-background)' }}>
+              <img
+                src={draftAvatar}
+                alt="Prévia da foto de perfil"
+                className="w-24 h-24 rounded-2xl object-cover shrink-0"
+                style={{ background: 'var(--color-muted)' }}
+              />
+              <div className="flex-1 text-center sm:text-left">
+                <div className="font-semibold">Foto de perfil</div>
+                <p className="text-xs mt-1 mb-3" style={{ color: 'var(--color-muted-foreground)' }}>
+                  Use JPG, PNG ou WebP. A imagem será recortada em formato quadrado.
+                </p>
+                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                  <label
+                    className="cursor-pointer px-4 py-2 rounded-full text-sm font-semibold"
+                    style={{ background: 'var(--color-accent)', color: 'var(--color-accent-foreground)' }}
+                  >
+                    Escolher foto
+                    <input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleAvatarUpload} className="sr-only" />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setDraftAvatar(STUDENT_AVATAR)}
+                    className="px-4 py-2 rounded-full text-sm font-semibold border"
+                    style={{ borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    Restaurar foto original
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <EditField label="Nome completo">
+                <input value={draft.name} onChange={(event) => updateDraft('name', event.target.value)} className="profile-input" required />
+              </EditField>
+              <EditField label="Localização">
+                <input value={draft.location} onChange={(event) => updateDraft('location', event.target.value)} className="profile-input" required />
+              </EditField>
+              <EditField label="Curso">
+                <input value={draft.course} onChange={(event) => updateDraft('course', event.target.value)} className="profile-input" required />
+              </EditField>
+              <EditField label="Universidade">
+                <input value={draft.university} onChange={(event) => updateDraft('university', event.target.value)} className="profile-input" required />
+              </EditField>
+              <EditField label="Semestre">
+                <input value={draft.semester} onChange={(event) => updateDraft('semester', event.target.value)} className="profile-input" required />
+              </EditField>
+            </div>
+
+            <div className="mt-4">
+              <EditField label="Sobre você">
+                <textarea
+                  value={draft.about}
+                  onChange={(event) => updateDraft('about', event.target.value)}
+                  className="profile-input resize-none"
+                  rows={4}
+                  required
+                />
+              </EditField>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6 pt-5 border-t" style={{ borderColor: 'var(--color-border)' }}>
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold border"
+                style={{ borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="px-6 py-2.5 rounded-full text-sm font-semibold"
+                style={{ background: 'var(--color-accent)', color: 'var(--color-accent-foreground)' }}
+              >
+                Salvar alterações
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      <style>{`
+        .profile-input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 0.75rem;
+          border: 1px solid var(--color-border);
+          background: var(--color-background);
+          color: var(--color-foreground);
+          font: inherit;
+          font-size: 0.875rem;
+          outline: none;
+          transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .profile-input:focus {
+          border-color: var(--color-accent);
+          box-shadow: 0 0 0 3px rgba(26,92,255,0.1);
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="p-5 rounded-2xl border" style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
+      <div className="text-xs font-semibold tracking-widest uppercase mb-4"
+        style={{ color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>
+        {title}
+      </div>
+      {children}
+    </div>
+  )
+}
+
+function EditField({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className="text-xs font-semibold">{label}</span>
+      {children}
+    </label>
+  )
+}
