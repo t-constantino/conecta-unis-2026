@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function LoginPage({ onNavigate, role }: Props) {
-  const [mode, setMode] = useState<Mode>('login')
+  const [mode, setMode] = useState<Mode>('cadastro')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
