@@ -186,8 +186,8 @@ export default function StudentProfile({ onNavigate }: Props) {
             <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0a2463 0%, #1a5cff 100%)' }} />
           </div>
           {/* Info */}
-          <div className="px-6 pb-6">
-            <div className="flex flex-wrap items-end gap-4 -mt-10 mb-4">
+          <div className="px-6 pb-6 pt-6">
+            <div className="flex flex-wrap items-end gap-4 mb-4">
               {avatarFailed ? (
                 <div
                   className="w-20 h-20 shrink-0 rounded-2xl border-4 flex items-center justify-center text-xl font-bold"
