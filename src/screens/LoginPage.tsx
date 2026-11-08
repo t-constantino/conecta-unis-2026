@@ -25,7 +25,6 @@ export default function LoginPage({ onNavigate, role }: Props) {
     console.log("1. Botão de submit clicado!");
     console.log("Modo atual:", mode, "| Role:", role);
 
-    // Se for cadastro de aluno, envia para a API que criamos
     if (!isLogin && role === 'aluno') {
       try {
         console.log("2. Enviando requisição para /api/register...");
@@ -50,6 +49,13 @@ export default function LoginPage({ onNavigate, role }: Props) {
           alert(result.message || 'Erro ao realizar cadastro.');
           return;
         }
+
+        localStorage.setItem('conecta_user', JSON.stringify({
+          nome_completo: name,
+          universidade: university,
+          curso: course,
+          email: email
+        }));
 
         alert('Conta criada com sucesso!');
         onNavigate('profile');
