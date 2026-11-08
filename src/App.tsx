@@ -10,13 +10,13 @@ import JobApplication from './screens/JobApplication'
 type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'company-login' | 'publish' | 'apply'
 
 const NAV: { key: Screen; label: string }[] = [
-  { key: 'landing', label: 'Landing' },
+  { key: 'landing', label: 'Página Inicial' },
   { key: 'student-login', label: 'Login Aluno' },
   { key: 'company-login', label: 'Login Empresa' },
   { key: 'jobs', label: 'Vagas' },
   { key: 'apply', label: 'Candidatura' },
   { key: 'profile', label: 'Perfil' },
-  { key: 'dashboard', label: 'Dashboard' },
+  { key: 'dashboard', label: 'Painel' },
   { key: 'publish', label: 'Publicar Vaga' },
 ]
 
