@@ -29,7 +29,7 @@ const applications = [
   { company: 'TOTVS', role: 'Dev Front-end Júnior', status: 'Rejeitado', date: '05 set 2026', color: '#e84c2b', feedback: 'Feedback recebido', challenge: 'Concluído' },
 ]
 
-const STUDENT_AVATAR = 'https://images.unsplash.com/photo-1648478445898-ae81dfa8701b?auto=format&fit=crop&crop=faces&w=480&h=480&q=85'
+const STUDENT_AVATAR = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236b7280"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-3.8-1.04-4.84-2.61.03-1.61 3.23-2.49 4.84-2.49 1.6 0 4.8 1.08 4.84 2.49C15.8 18.96 14.03 20 12 20z"/></svg>'
 const PROFILE_STORAGE_KEY = 'conecta-unis-student-profile'
 const AVATAR_STORAGE_KEY = 'conecta-unis-student-avatar'
 const VIDEO_STORAGE_KEY = 'conecta-unis-student-video'
