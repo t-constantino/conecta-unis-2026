@@ -21,23 +21,30 @@ export default function LoginPage({ onNavigate, role }: Props) {
 
   const isLogin = mode === 'login'
 
-async function handleSubmit() {
+  async function handleSubmit() {
+    console.log("1. Botão de submit clicado!");
+    console.log("Modo atual:", mode, "| Role:", role);
+
     // Se for cadastro de aluno, envia para a API que criamos
     if (!isLogin && role === 'aluno') {
       try {
+        console.log("2. Enviando requisição para /api/register...");
+        
         const response = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             nome_completo: name,
             universidade: university,
-            curso: curso,
+            curso: course,
             email: email,
             senha: password
           })
         });
 
+        console.log("3. Resposta recebida da API! Status:", response.status);
         const result = await response.json();
+        console.log("4. Dados da resposta:", result);
 
         if (!response.ok) {
           alert(result.message || 'Erro ao realizar cadastro.');
@@ -47,6 +54,7 @@ async function handleSubmit() {
         alert('Conta criada com sucesso!');
         onNavigate('profile');
       } catch (error) {
+        console.error("ERRO CAPTURADO NO CATCH:", error);
         alert('Erro de conexão com o servidor.');
       }
       return;
