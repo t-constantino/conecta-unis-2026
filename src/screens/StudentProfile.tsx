@@ -45,10 +45,10 @@ interface ProfileData {
 
 const DEFAULT_PROFILE: ProfileData = {
   name: 'Julie Costa',
-  course: 'Ciência da Computação',
-  university: 'USP',
-  semester: '7.º semestre',
-  location: 'São Paulo, SP',
+  course: 'Análise e Desenvolvimento de Sistemas',
+  university: 'Unis',
+  semester: '4.º semestre',
+  location: 'São Lourenço, MG',
   about: 'Desenvolvedora apaixonada por criar produtos que impactam pessoas. Tenho experiência em desenvolvimento web fullstack, com foco em React e Node.js. Busco uma oportunidade de estágio onde possa crescer e contribuir em projetos desafiadores.',
 }
 
