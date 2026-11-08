@@ -52,8 +52,21 @@ const DEFAULT_PROFILE: ProfileData = {
   about: 'Desenvolvedora apaixonada por criar produtos que impactam pessoas. Tenho experiência em desenvolvimento web fullstack, com foco em React e Node.js. Busco uma oportunidade de estágio onde possa crescer e contribuir em projetos desafiadores.',
 }
 
-function loadProfile() {
+function loadProfile(): ProfileData {
   try {
+    // 1. Tenta carregar os dados vindos direto do cadastro feito no LoginPage
+    const registeredUser = localStorage.getItem('conecta_user')
+    if (registeredUser) {
+      const parsedUser = JSON.parse(registeredUser)
+      return {
+        ...DEFAULT_PROFILE,
+        name: parsedUser.nome_completo || DEFAULT_PROFILE.name,
+        university: parsedUser.universidade || DEFAULT_PROFILE.university,
+        course: parsedUser.curso || DEFAULT_PROFILE.course,
+      }
+    }
+
+    // 2. Se não houver cadastro recente, carrega do perfil editado anteriormente
     const stored = localStorage.getItem(PROFILE_STORAGE_KEY)
     if (!stored) return DEFAULT_PROFILE
     const parsed = JSON.parse(stored) as Partial<ProfileData>
@@ -179,9 +192,9 @@ export default function StudentProfile({ onNavigate }: Props) {
                 <div
                   className="w-20 h-20 shrink-0 rounded-2xl border-4 flex items-center justify-center text-xl font-bold"
                   style={{ borderColor: 'var(--color-card)', background: 'var(--color-accent)', color: 'var(--color-accent-foreground)' }}
-                  aria-label="Foto de perfil de Julie Costa"
+                  aria-label={`Foto de perfil de ${profile.name}`}
                 >
-                  JC
+                  {profile.name.slice(0, 2).toUpperCase()}
                 </div>
               ) : (
                 <img
@@ -307,8 +320,8 @@ export default function StudentProfile({ onNavigate }: Props) {
 
               {/* Education */}
               <Section title="Formação">
-                <div className="text-sm font-semibold">Bacharelado em Ciência da Computação</div>
-                <div className="text-sm mt-0.5" style={{ color: 'var(--color-accent)' }}>Universidade de São Paulo</div>
+                <div className="text-sm font-semibold">Bacharelado em {profile.course}</div>
+                <div className="text-sm mt-0.5" style={{ color: 'var(--color-accent)' }}>{profile.university}</div>
                 <div className="text-xs mt-1" style={{ color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>
                   2022 – 2026 · CR 8.4
                 </div>
