@@ -112,9 +112,9 @@ export default function LandingPage({ onNavigate }: Props) {
             style={{ borderColor: 'var(--color-muted)', color: 'var(--color-muted)' }}>
             Entrar como aluno
           </button>
-          <button onClick={() => onNavigate('company-login')} className="text-sm px-4 py-2 rounded-full font-semibold transition-all hover:scale-105"
+          <button onClick={() => onNavigate('student-login')} className="text-sm px-4 py-2 rounded-full font-semibold transition-all hover:scale-105"
             style={{ background: 'var(--color-accent)', color: '#fff' }}>
-            Área da Empresa
+            Cadastre-se grátis
           </button>
         </div>
       </nav>
