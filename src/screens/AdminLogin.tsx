@@ -44,12 +44,12 @@ export default function AdminLogin({ onNavigate, onLoginSuccess }: Props) {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold mb-1">E-mail</label>
+            <label className="block text-xs font-semibold mb-1">Login</label>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="talles.admin@gmail.com"
+              placeholder="Login"
               required
               className="w-full px-4 py-3 rounded-xl border text-sm outline-none"
               style={{ background: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
@@ -61,7 +61,7 @@ export default function AdminLogin({ onNavigate, onLoginSuccess }: Props) {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
+              placeholder="senha"
               required
               className="w-full px-4 py-3 rounded-xl border text-sm outline-none"
               style={{ background: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
