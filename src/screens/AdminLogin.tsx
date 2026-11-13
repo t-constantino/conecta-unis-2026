@@ -49,7 +49,6 @@ export default function AdminLogin({ onNavigate, onLoginSuccess }: Props) {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Login"
               required
               className="w-full px-4 py-3 rounded-xl border text-sm outline-none"
               style={{ background: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
@@ -61,7 +60,6 @@ export default function AdminLogin({ onNavigate, onLoginSuccess }: Props) {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="senha"
               required
               className="w-full px-4 py-3 rounded-xl border text-sm outline-none"
               style={{ background: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
