@@ -216,10 +216,6 @@ export default function StudentProfile({ onNavigate }: Props) {
                   style={{ borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}>
                   Editar perfil
                 </button>
-                <button className="px-4 py-2 rounded-full text-sm font-semibold transition-all hover:scale-105"
-                  style={{ background: 'var(--color-accent)', color: '#fff' }}>
-                  Ver como empresa
-                </button>
                 {saved && (
                   <span className="w-full text-xs text-right" style={{ color: 'var(--color-accent)' }}>
                     Perfil atualizado com sucesso
