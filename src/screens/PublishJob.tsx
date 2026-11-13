@@ -73,7 +73,6 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
           salario_min: Number(salaryMin),
           salario_max: Number(salaryMax),
           formato_entrevista: interviewFormat,
-          descricao,
           requisitos: requirements,
           nivel: level,
           vagas_disponiveis: Number(slots),
