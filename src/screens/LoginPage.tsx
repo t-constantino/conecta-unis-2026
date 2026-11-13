@@ -7,10 +7,11 @@ type Mode = 'login' | 'cadastro'
 interface Props {
   onNavigate: (s: string) => void
   role: Role
+  initialMode?: Mode
 }
 
-export default function LoginPage({ onNavigate, role }: Props) {
-  const [mode, setMode] = useState<Mode>('cadastro')
+export default function LoginPage({ onNavigate, role, initialMode = 'cadastro' }: Props) {
+  const [mode, setMode] = useState<Mode>(initialMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
