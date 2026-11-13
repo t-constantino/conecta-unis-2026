@@ -6,18 +6,19 @@ import CompanyDashboard from './screens/CompanyDashboard'
 import LoginPage from './screens/LoginPage'
 import PublishJob from './screens/PublishJob'
 import JobApplication from './screens/JobApplication'
+import AdminDashboard from './screens/AdminDashboard' // <- Nova tela do Admin
 
-type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'company-login' | 'publish' | 'apply'
+type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'student-register' | 'company-login' | 'publish' | 'apply' | 'admin'
 
 const NAV: { key: Screen; label: string }[] = [
   { key: 'landing', label: 'Página Inicial' },
-  { key: 'student-login', label: 'Login Aluno' },
-  { key: 'company-login', label: 'Login Empresa' },
+  { key: 'student-login', label: 'Entrar (Aluno)' },
+  { key: 'student-register', label: 'Cadastrar (Aluno)' },
+  { key: 'company-login', label: 'Empresa' },
   { key: 'jobs', label: 'Vagas' },
-  { key: 'apply', label: 'Candidatura' },
   { key: 'profile', label: 'Perfil' },
-  { key: 'dashboard', label: 'Painel' },
-  { key: 'publish', label: 'Publicar Vaga' },
+  { key: 'dashboard', label: 'Painel Empresa' },
+  { key: 'admin', label: 'Painel Admin' },
 ]
 
 export default function App() {
@@ -26,8 +27,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: 'var(--font-sans)' }}>
-      {/* Prototype nav pill */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-1 rounded-full px-2 py-2 shadow-2xl"
+      {/* Barra flutuante de protótipo */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-1 rounded-full px-2 py-2 shadow-2xl overflow-x-auto max-w-[95vw]"
         style={{ background: 'var(--color-foreground)' }}>
         {NAV.map(({ key, label }) => (
           <button
@@ -44,14 +45,16 @@ export default function App() {
         ))}
       </div>
 
-      {screen === 'landing'   && <LandingPage onNavigate={go} />}
-      {screen === 'student-login' && <LoginPage role="aluno" onNavigate={go} />}
-      {screen === 'company-login' && <LoginPage role="empresa" onNavigate={go} />}
-      {screen === 'jobs'      && <JobSearch onNavigate={go} />}
-      {screen === 'profile'   && <StudentProfile onNavigate={go} />}
-      {screen === 'dashboard' && <CompanyDashboard onNavigate={go} />}
-      {screen === 'publish'   && <PublishJob onNavigate={go} />}
-      {screen === 'apply'     && <JobApplication onNavigate={go} />}
+      {screen === 'landing'           && <LandingPage onNavigate={go} />}
+      {screen === 'student-login'     && <LoginPage role="aluno" initialMode="login" onNavigate={go} />}
+      {screen === 'student-register'  && <LoginPage role="aluno" initialMode="cadastro" onNavigate={go} />}
+      {screen === 'company-login'     && <LoginPage role="empresa" onNavigate={go} />}
+      {screen === 'jobs'              && <JobSearch onNavigate={go} />}
+      {screen === 'profile'           && <StudentProfile onNavigate={go} />}
+      {screen === 'dashboard'         && <CompanyDashboard onNavigate={go} />}
+      {screen === 'publish'           && <PublishJob onNavigate={go} />}
+      {screen === 'apply'             && <JobApplication onNavigate={go} />}
+      {screen === 'admin'             && <AdminDashboard onNavigate={go} />}
     </div>
   )
 }
