@@ -47,12 +47,30 @@ export default async function handler(req: any, res: any) {
         RETURNING *;
       `;
 
+      // Garante que arrays venham como arrays válidos ou vazios para o Postgres
+      const safeHabilidades = Array.isArray(habilidades) ? habilidades : [];
+      const safeBeneficios = Array.isArray(beneficios) ? beneficios : [];
+
       const values = [
-        empresa_id, titulo, area, tipo, modalidade, localizacao,
-        salario_min, salario_max, formato_entrevista, descricao,
-        requisitos, nivel, vagas_disponiveis, prazo_inscricao || null,
-        habilidades, beneficios, universidade_alvo || null, challenge_prompt,
-        feedback_message
+        empresa_id || 1,
+        titulo,
+        area || '',
+        tipo || '',
+        modalidade || '',
+        localizacao || '',
+        Number(salario_min),
+        Number(salario_max),
+        formato_entrevista || '',
+        descricao || '',
+        requisitos || '',
+        nivel || '',
+        Number(vagas_disponiveis) || 1,
+        prazo_inscricao || null,
+        safeHabilidades,
+        safeBeneficios,
+        universidade_alvo || null,
+        challenge_prompt || '',
+        feedback_message || ''
       ];
 
       const result = await pool.query(query, values);
@@ -62,7 +80,7 @@ export default async function handler(req: any, res: any) {
 
     return res.status(400).json({ error: 'Ação inválida.' });
   } catch (err: any) {
-    console.error('Erro na API de vagas:', err);
-    return res.status(500).json({ error: 'Erro interno no servidor ao publicar vaga.' });
+    console.error('Erro detalhado na API de vagas:', err);
+    return res.status(500).json({ error: err.message || 'Erro interno no servidor ao publicar vaga.' });
   }
 }
