@@ -202,16 +202,16 @@ export default function LoginPage({ onNavigate, role, initialMode = 'cadastro' }
               <>
                 <Field label="Nome completo">
                   <input value={name} onChange={(e) => setName(e.target.value)}
-                    placeholder="Julie Costa" className="field-input" />
+                    placeholder="Digite seu nome completo" className="field-input" />
                 </Field>
                 <div className="grid grid-cols-2 gap-3">
                   <Field label="Unidade">
                     <input value={university} onChange={(e) => setUniversity(e.target.value)}
-                      placeholder="Unis São Lourenço" className="field-input" />
+                      placeholder="Ex: Unis Varginha" className="field-input" />
                   </Field>
                   <Field label="Curso">
                     <input value={course} onChange={(e) => setCourse(e.target.value)}
-                      placeholder="Análise e Desenvolvimento de Sistemas" className="field-input" />
+                      placeholder="Ex: Administração" className="field-input" />
                   </Field>
                 </div>
               </>
@@ -221,7 +221,7 @@ export default function LoginPage({ onNavigate, role, initialMode = 'cadastro' }
               <>
                 <Field label="Nome fantasia">
                   <input value={name} onChange={(e) => setName(e.target.value)}
-                    placeholder="Nubank" className="field-input" />
+                    placeholder="Nome da sua empresa" className="field-input" />
                 </Field>
                 <Field label="CNPJ">
                   <input value={cnpj} onChange={(e) => setCnpj(e.target.value)}
@@ -232,7 +232,7 @@ export default function LoginPage({ onNavigate, role, initialMode = 'cadastro' }
 
             <Field label="E-mail">
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                placeholder={role === 'aluno' ? 'lucas@unis.edu.br' : 'rh@empresa.com.br'}
+                placeholder="seu.email@exemplo.com"
                 className="field-input" />
             </Field>
 
@@ -240,7 +240,7 @@ export default function LoginPage({ onNavigate, role, initialMode = 'cadastro' }
               <div className="relative">
                 <input type={showPass ? 'text' : 'password'}
                   value={password} onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••" className="field-input pr-10" />
+                  placeholder="Sua senha de acesso" className="field-input pr-10" />
                 <button type="button" onClick={() => setShowPass(!showPass)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-xs"
                   style={{ color: 'var(--color-muted-foreground)' }}>
