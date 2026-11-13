@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'company-login' | 'publish'
+type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'student-register' | 'company-login' | 'publish'
 
 interface Props {
   onNavigate: (s: Screen) => void
@@ -112,7 +112,8 @@ export default function LandingPage({ onNavigate }: Props) {
             style={{ borderColor: 'var(--color-muted)', color: 'var(--color-muted)' }}>
             Entrar como aluno
           </button>
-          <button onClick={() => onNavigate('student-login')} className="text-sm px-4 py-2 rounded-full font-semibold transition-all hover:scale-105"
+          {/* CORRIGIDO AQUI: Agora aponta para 'student-register' */}
+          <button onClick={() => onNavigate('student-register')} className="text-sm px-4 py-2 rounded-full font-semibold transition-all hover:scale-105"
             style={{ background: 'var(--color-accent)', color: '#fff' }}>
             Cadastre-se grátis
           </button>
@@ -330,7 +331,7 @@ export default function LandingPage({ onNavigate }: Props) {
           Pronto para dar o próximo passo?
         </h2>
         <div className="flex flex-col sm:flex-row gap-4">
-          <button onClick={() => onNavigate('profile')}
+          <button onClick={() => onNavigate('student-register')}
             className="px-8 py-4 rounded-full font-semibold text-base transition-all hover:scale-105"
             style={{ background: 'var(--color-accent)', color: '#fff' }}>
             Criar perfil de aluno
