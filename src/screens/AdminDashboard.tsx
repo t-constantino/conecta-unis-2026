@@ -11,16 +11,15 @@ interface Student {
   universidade: string
   curso: string
   email: string
-  status?: 'Ativo' | 'Pendente'
+  criado_em?: string
 }
 
 interface Company {
   id: number | string
-  nome: string
+  nome_fantasia: string
   cnpj: string
   email: string
-  vagas_ativas: number
-  status: 'Aprovada' | 'Em análise'
+  criado_em?: string
 }
 
 interface ContactMessage {
@@ -28,7 +27,7 @@ interface ContactMessage {
   nome: string
   email: string
   mensagem: string
-  data?: string
+  criado_em?: string
 }
 
 export default function AdminDashboard({ onNavigate }: Props) {
@@ -36,68 +35,108 @@ export default function AdminDashboard({ onNavigate }: Props) {
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const [students, setStudents] = useState<Student[]>([
-    { id: 1, nome_completo: 'Julie Costa', universidade: 'Unis São Lourenço', curso: 'Análise e Desenv. de Sistemas', email: 'julie.costa@unis.edu.br', status: 'Ativo' },
-    { id: 2, nome_completo: 'Lucas Andrade', universidade: 'Unis Varginha', curso: 'Engenharia de Produção', email: 'lucas.andrade@unis.edu.br', status: 'Ativo' },
-    { id: 3, nome_completo: 'Mariana Silva', universidade: 'Unis Cataguases', curso: 'Administração', email: 'mariana.silva@unis.edu.br', status: 'Pendente' },
-  ])
+  const [students, setStudents] = useState<Student[]>([])
+  const [companies, setCompanies] = useState<Company[]>([])
+  const [messages, setMessages] = useState<ContactMessage[]>([])
 
-  const [companies, setCompanies] = useState<Company[]>([
-    { id: 1, nome: 'Nubank', cnpj: '18.236.120/0001-58', email: 'rh@nubank.com.br', vagas_ativas: 12, status: 'Aprovada' },
-    { id: 2, nome: 'Totvs', cnpj: '53.113.791/0001-22', email: 'talentos@totvs.com.br', vagas_ativas: 8, status: 'Aprovada' },
-    { id: 3, nome: 'TechSul Minas', cnpj: '42.890.112/0001-09', email: 'contato@techsul.com.br', vagas_ativas: 2, status: 'Em análise' },
-  ])
-
-  const [messages, setMessages] = useState<ContactMessage[]>([
-    { id: 1, nome: 'Carlos Mendes', email: 'carlos@empresa.com', mensagem: 'Gostaria de cadastrar nossa empresa para divulgar vagas de estágio em TI.', data: 'Hoje, 10:45' },
-  ])
-
-  useEffect(() => {
-    async function fetchAdminData() {
-      setLoading(true)
-      try {
-        const res = await fetch('/api/admin')
-        if (res.ok) {
-          const data = await res.json()
-          if (data.students) setStudents(data.students)
-          if (data.companies) setCompanies(data.companies)
-          if (data.messages) setMessages(data.messages)
-        }
-      } catch {
-        // Mantém os dados locais caso o endpoint /api/admin ainda não exista
-      } finally {
-        setLoading(false)
+  // Busca os dados reais do banco Neon via API /api/admin
+  const fetchAdminData = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/admin')
+      if (res.ok) {
+        const data = await res.json()
+        if (data.estudantes) setStudents(data.estudantes)
+        if (data.empresas) setCompanies(data.empresas)
+        if (data.contatos) setMessages(data.contatos)
       }
-    }
-    fetchAdminData()
-  }, [])
-
-  const handleDeleteStudent = (id: number | string) => {
-    if (confirm('Deseja realmente remover este aluno?')) {
-      setStudents((prev) => prev.filter((s) => s.id !== id))
+    } catch (err) {
+      console.error('Erro ao buscar dados do admin:', err)
+    } finally {
+      setLoading(false)
     }
   }
 
-  const handleToggleCompanyStatus = (id: number | string) => {
-    setCompanies((prev) =>
-      prev.map((c) =>
-        c.id === id ? { ...c, status: c.status === 'Aprovada' ? 'Em análise' : 'Aprovada' } : c
-      )
-    )
+  useEffect(() => {
+    fetchAdminData()
+  }, [])
+
+  // Deletar Aluno
+  const handleDeleteStudent = async (id: number | string) => {
+    if (!confirm('Deseja realmente remover este aluno?')) return
+    try {
+      const res = await fetch('/api/admin', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, type: 'estudante' }),
+      })
+      if (res.ok) {
+        setStudents((prev) => prev.filter((s) => s.id !== id))
+      } else {
+        alert('Erro ao excluir aluno.')
+      }
+    } catch (err) {
+      alert('Erro de conexão.')
+    }
+  }
+
+  // Deletar Empresa
+  const handleDeleteCompany = async (id: number | string) => {
+    if (!confirm('Deseja realmente remover esta empresa?')) return
+    try {
+      const res = await fetch('/api/admin', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, type: 'empresa' }),
+      })
+      if (res.ok) {
+        setCompanies((prev) => prev.filter((c) => c.id !== id))
+      } else {
+        alert('Erro ao excluir empresa.')
+      }
+    } catch (err) {
+      alert('Erro de conexão.')
+    }
+  }
+
+  // Deletar Mensagem de Contato
+  const handleDeleteMessage = async (id: number | string) => {
+    if (!confirm('Deseja realmente excluir esta mensagem?')) return
+    try {
+      const res = await fetch('/api/admin', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, type: 'contato' }),
+      })
+      if (res.ok) {
+        setMessages((prev) => prev.filter((m) => m.id !== id))
+      } else {
+        alert('Erro ao excluir mensagem.')
+      }
+    } catch (err) {
+      alert('Erro de conexão.')
+    }
   }
 
   const filteredStudents = students.filter(
     (s) =>
-      s.nome_completo.toLowerCase().includes(search.toLowerCase()) ||
-      s.email.toLowerCase().includes(search.toLowerCase()) ||
-      s.universidade.toLowerCase().includes(search.toLowerCase())
+      s.nome_completo?.toLowerCase().includes(search.toLowerCase()) ||
+      s.email?.toLowerCase().includes(search.toLowerCase()) ||
+      s.universidade?.toLowerCase().includes(search.toLowerCase())
   )
 
   const filteredCompanies = companies.filter(
     (c) =>
-      c.nome.toLowerCase().includes(search.toLowerCase()) ||
-      c.cnpj.includes(search) ||
-      c.email.toLowerCase().includes(search.toLowerCase())
+      c.nome_fantasia?.toLowerCase().includes(search.toLowerCase()) ||
+      c.cnpj?.includes(search) ||
+      c.email?.toLowerCase().includes(search.toLowerCase())
+  )
+
+  const filteredMessages = messages.filter(
+    (m) =>
+      m.nome?.toLowerCase().includes(search.toLowerCase()) ||
+      m.email?.toLowerCase().includes(search.toLowerCase()) ||
+      m.mensagem?.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
@@ -158,7 +197,9 @@ export default function AdminDashboard({ onNavigate }: Props) {
                 color: activeTab === tab ? '#fff' : 'var(--color-foreground)',
               }}
             >
-              {tab}
+              {tab === 'alunos' && `Alunos (${students.length})`}
+              {tab === 'empresas' && `Empresas (${companies.length})`}
+              {tab === 'mensagens' && `Mensagens (${messages.length})`}
             </button>
           ))}
         </div>
@@ -200,7 +241,7 @@ export default function AdminDashboard({ onNavigate }: Props) {
                   {filteredStudents.length === 0 && (
                     <tr>
                       <td colSpan={4} className="py-8 text-center text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
-                        Nenhum aluno encontrado.
+                        Nenhum aluno cadastrado.
                       </td>
                     </tr>
                   )}
@@ -219,40 +260,33 @@ export default function AdminDashboard({ onNavigate }: Props) {
                   <tr className="border-b text-xs font-mono uppercase" style={{ borderColor: 'var(--color-border)', color: 'var(--color-muted-foreground)' }}>
                     <th className="py-4 px-6">Empresa</th>
                     <th className="py-4 px-6">CNPJ</th>
-                    <th className="py-4 px-6">Status</th>
+                    <th className="py-4 px-6">E-mail</th>
                     <th className="py-4 px-6 text-right">Ações</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y text-sm" style={{ borderColor: 'var(--color-border)' }}>
                   {filteredCompanies.map((c) => (
                     <tr key={c.id} className="hover:bg-[var(--color-secondary)]/50 transition-colors">
-                      <td className="py-4 px-6">
-                        <div className="font-semibold">{c.nome}</div>
-                        <div className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>{c.email}</div>
-                      </td>
+                      <td className="py-4 px-6 font-semibold">{c.nome_fantasia}</td>
                       <td className="py-4 px-6 font-mono text-xs">{c.cnpj}</td>
-                      <td className="py-4 px-6">
-                        <span
-                          className="px-3 py-1 rounded-full text-xs font-semibold"
-                          style={{
-                            background: c.status === 'Aprovada' ? 'rgba(34,197,94,0.15)' : 'rgba(234,179,8,0.15)',
-                            color: c.status === 'Aprovada' ? '#16a34a' : '#ca8a04',
-                          }}
-                        >
-                          {c.status}
-                        </span>
-                      </td>
+                      <td className="py-4 px-6 font-mono text-xs" style={{ color: 'var(--color-muted-foreground)' }}>{c.email}</td>
                       <td className="py-4 px-6 text-right">
                         <button
-                          onClick={() => handleToggleCompanyStatus(c.id)}
-                          className="text-xs px-3 py-1.5 rounded-full font-semibold border transition-colors"
-                          style={{ borderColor: 'var(--color-border)' }}
+                          onClick={() => handleDeleteCompany(c.id)}
+                          className="text-xs px-3 py-1.5 rounded-full font-semibold text-red-600 bg-red-500/10 hover:bg-red-500/20 transition-colors"
                         >
-                          {c.status === 'Aprovada' ? 'Suspender' : 'Aprovar'}
+                          Remover
                         </button>
                       </td>
                     </tr>
                   ))}
+                  {filteredCompanies.length === 0 && (
+                    <tr>
+                      <td colSpan={4} className="py-8 text-center text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
+                        Nenhuma empresa cadastrada.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -262,18 +296,33 @@ export default function AdminDashboard({ onNavigate }: Props) {
         {/* MENSAGENS DE CONTATO */}
         {activeTab === 'mensagens' && (
           <div className="grid gap-4">
-            {messages.map((m) => (
-              <div key={m.id} className="p-6 rounded-3xl border" style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
-                <div className="flex items-center justify-between mb-2">
-                  <div>
+            {filteredMessages.map((m) => (
+              <div key={m.id} className="p-6 rounded-3xl border flex flex-col md:flex-row md:items-center justify-between gap-4" style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3">
                     <span className="font-semibold">{m.nome}</span>
-                    <span className="text-xs font-mono ml-3" style={{ color: 'var(--color-muted-foreground)' }}>{m.email}</span>
+                    <span className="text-xs font-mono" style={{ color: 'var(--color-accent)' }}>{m.email}</span>
+                    {m.criado_em && (
+                      <span className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+                        • {new Date(m.criado_em).toLocaleDateString()}
+                      </span>
+                    )}
                   </div>
-                  {m.data && <span className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>{m.data}</span>}
+                  <p className="text-sm leading-relaxed mt-2" style={{ color: 'var(--color-muted-foreground)' }}>{m.mensagem}</p>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>{m.mensagem}</p>
+                <button
+                  onClick={() => handleDeleteMessage(m.id)}
+                  className="self-start md:self-center text-xs px-3 py-1.5 rounded-full font-semibold text-red-600 bg-red-500/10 hover:bg-red-500/20 transition-colors whitespace-nowrap"
+                >
+                  Excluir Mensagem
+                </button>
               </div>
             ))}
+            {filteredMessages.length === 0 && (
+              <div className="p-8 text-center rounded-3xl border text-sm" style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)', color: 'var(--color-muted-foreground)' }}>
+                Nenhuma mensagem recebida.
+              </div>
+            )}
           </div>
         )}
       </main>
