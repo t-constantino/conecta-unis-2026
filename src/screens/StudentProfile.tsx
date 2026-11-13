@@ -169,7 +169,6 @@ export default function StudentProfile({ onNavigate }: Props) {
       {/* Header */}
       <div className="px-6 py-4 border-b flex items-center gap-3"
         style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
-        <BackButton onClick={() => onNavigate('landing')} />
         <span className="font-bold text-lg ml-2" style={{ fontFamily: 'var(--font-display)' }}>
           Conecta<span style={{ color: 'var(--color-accent)' }}>Unis</span>
         </span>
