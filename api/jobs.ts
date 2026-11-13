@@ -38,15 +38,14 @@ export default async function handler(req: any, res: any) {
       const query = `
         INSERT INTO vagas (
           empresa_id, titulo, area, tipo, modalidade, localizacao, 
-          salario_min, salario_max, formato_entrevista, descricao, 
+          salario_min, salario_max, formato_entrevista, 
           requisitos, nivel, vagas_disponiveis, prazo_inscricao, 
           habilidades, beneficios, universidade_alvo, challenge_prompt, 
           feedback_message, status
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, 'ativa')
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, 'ativa')
         RETURNING *;
       `;
 
-      // Garante que arrays venham como arrays válidos ou vazios para o Postgres
       const safeHabilidades = Array.isArray(habilidades) ? habilidades : [];
       const safeBeneficios = Array.isArray(beneficios) ? beneficios : [];
 
@@ -60,7 +59,6 @@ export default async function handler(req: any, res: any) {
         Number(salario_min),
         Number(salario_max),
         formato_entrevista || '',
-        descricao || '',
         requisitos || '',
         nivel || '',
         Number(vagas_disponiveis) || 1,
