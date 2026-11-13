@@ -6,10 +6,6 @@ interface Props {
   onNavigate: (s: Screen) => void
 }
 
-const partners = [
-  'Itaú', 'Ambev', 'Magazine Luiza', 'Totvs', 'Nubank', 'Porto Seguro', 'Vivo', 'Embraer',
-]
-
 const stats = [
   { value: '48.200', label: 'alunos cadastrados' },
   { value: '3.700', label: 'vagas ativas' },
@@ -95,15 +91,15 @@ export default function LandingPage({ onNavigate }: Props) {
       <section className="flex-1 flex flex-col justify-center items-center text-center px-6 py-32 md:py-40 max-w-4xl mx-auto">
         <span className="inline-block mb-6 text-xs font-mono tracking-widest uppercase px-4 py-1.5 rounded-full border"
           style={{ borderColor: 'var(--color-accent)', color: 'var(--color-accent)', fontFamily: 'var(--font-mono)' }}>
-          Plataforma de Carreiras Universitárias
+          Plataforma de Carreiras do Grupo Unis
         </span>
         
         <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6" style={{ fontFamily: 'var(--font-display)' }}>
-          Conectando talentos universitários <br />ao <span style={{ color: 'var(--color-accent)' }}>mercado de trabalho.</span>
+          Conectando talentos <br />ao <span style={{ color: 'var(--color-accent)' }}>mercado de trabalho.</span>
         </h1>
         
         <p className="text-base md:text-lg mb-10 max-w-2xl leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
-          Acelere sua carreira ou encontre os melhores profissionais formados nas unidades Unis com processos transparentes e ágeis.
+          Acelere sua carreira ou encontre os melhores profissionais formados nas unidades do Grupo Unis com processos transparentes e ágeis.
         </p>
 
         {/* Botões centrais de acesso rápido */}
@@ -135,17 +131,7 @@ export default function LandingPage({ onNavigate }: Props) {
         </div>
       </section>
 
-      {/* PARTNERS TICKER */}
-      <div className="py-6 border-y overflow-hidden" style={{ borderColor: 'var(--color-border)', background: 'var(--color-secondary)' }}>
-        <div className="flex gap-12 animate-[marquee_20s_linear_infinite] whitespace-nowrap">
-          {[...partners, ...partners].map((p, i) => (
-            <span key={i} className="text-sm font-semibold tracking-widest uppercase opacity-40"
-              style={{ fontFamily: 'var(--font-mono)' }}>{p}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* CONTACT FORM SECTION (MANTIDA INTACTA) */}
+      {/* CONTACT FORM SECTION */}
       <section className="py-24 px-8 md:px-16 max-w-4xl mx-auto w-full">
         <div className="rounded-3xl p-8 md:p-12 border shadow-sm" style={{ borderColor: 'var(--color-border)', background: 'var(--color-card)' }}>
           <div className="text-center max-w-xl mx-auto mb-10">
@@ -214,17 +200,10 @@ export default function LandingPage({ onNavigate }: Props) {
             Conecta<span style={{ color: 'var(--color-accent)' }}>Unis</span>
           </span>
           <span className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
-            © 2026 Conecta Unis — Conectando universidades ao mercado de trabalho
+            © 2026 Conecta Unis — Conectando o Grupo Unis ao mercado de trabalho
           </span>
         </div>
       </footer>
-
-      <style>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   )
 }
