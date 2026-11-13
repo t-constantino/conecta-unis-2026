@@ -209,7 +209,6 @@ export default function CompanyDashboard({ onNavigate }: Props) {
         <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b"
           style={{ background: 'var(--color-card)', borderColor: 'var(--color-border)' }}>
           <div className="flex items-center gap-3">
-            <BackButton onClick={() => onNavigate?.('landing')} />
             <div>
               <h1 className="text-xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
                 {SECTION_TITLE[section]}
