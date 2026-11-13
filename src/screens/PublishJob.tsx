@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import BackButton from '../components/BackButton'
 
 interface Props {
   onNavigate: (s: string) => void
+  companyId?: number | string // Recebe o ID da empresa logada
 }
 
 const AREAS = ['Tecnologia', 'Engenharia', 'Administração', 'Marketing', 'Direito', 'Design', 'Saúde', 'Finanças', 'Recursos Humanos', 'Logística']
@@ -14,9 +14,11 @@ const BENEFITS = ['Vale-refeição', 'Vale-transporte', 'Plano de saúde', 'Aux�
 
 type Step = 1 | 2 | 3
 
-export default function PublishJob({ onNavigate }: Props) {
+export default function PublishJob({ onNavigate, companyId }: Props) {
   const [step, setStep] = useState<Step>(1)
   const [published, setPublished] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
   // Form state
   const [title, setTitle] = useState('')
@@ -50,9 +52,53 @@ export default function PublishJob({ onNavigate }: Props) {
     setSkillInput('')
   }
 
-  function handlePublish() {
+  // Função que envia a vaga para o banco Neon via API
+  async function handlePublish() {
     if (!salaryValid || !interviewFormat) return
-    setPublished(true)
+
+    setLoading(true)
+    setErrorMsg('')
+
+    try {
+      const response = await fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'create_job',
+          empresa_id: companyId || 1, // fallback para teste se necessário
+          titulo: title,
+          area,
+          tipo: type,
+          modalidade: mode,
+          localizacao: mode === 'Remoto' ? 'Remoto' : location,
+          salario_min: Number(salaryMin),
+          salario_max: Number(salaryMax),
+          formato_entrevista: interviewFormat,
+          descricao,
+          requisitos: requirements,
+          nivel: level,
+          vagas_disponiveis: Number(slots),
+          prazo_inscricao: deadline || null,
+          habilidades: skills,
+          beneficios: selectedBenefits,
+          universidade_alvo: university || null,
+          challenge_prompt: challengePrompt,
+          feedback_message: feedbackMessage,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao publicar vaga.')
+      }
+
+      setPublished(true)
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Erro ao conectar com o servidor.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (published) {
@@ -133,6 +179,12 @@ export default function PublishJob({ onNavigate }: Props) {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-10">
+        {errorMsg && (
+          <div className="mb-6 p-4 rounded-xl text-sm bg-red-500/10 border border-red-500/20 text-red-500">
+            {errorMsg}
+          </div>
+        )}
+
         {/* STEP 1 */}
         {step === 1 && (
           <div className="flex flex-col gap-5">
@@ -475,10 +527,10 @@ export default function PublishJob({ onNavigate }: Props) {
                 ← Voltar
               </button>
               <button onClick={handlePublish}
-                disabled={!salaryValid || !interviewFormat}
+                disabled={loading || !salaryValid || !interviewFormat}
                 className="px-8 py-3 rounded-full font-bold text-sm transition-all hover:scale-[1.02] hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ background: 'var(--color-accent)', color: '#fff' }}>
-                Publicar vaga agora ✓
+                {loading ? 'Publicando...' : 'Publicar vaga agora ✓'}
               </button>
             </div>
           </div>
