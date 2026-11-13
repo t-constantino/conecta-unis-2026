@@ -65,7 +65,7 @@ export default function App() {
       {screen === 'publish'           && <PublishJob onNavigate={go} />}
       {screen === 'apply'             && <JobApplication onNavigate={go} />}
       {screen === 'admin-login'       && <AdminLogin onNavigate={go} onLoginSuccess={() => setIsAdminAuthenticated(true)} />}
-      {screen === 'admin'             && (isAdminAuthenticated ? <AdminDashboard onNavigate={go} /> : <AdminLogin onNavigate={go} onLoginSuccess={() => setIsAdminAuthenticated(true)} />}
+      {screen === 'admin'             && (isAdminAuthenticated ? <AdminDashboard onNavigate={go} /> : <AdminLogin onNavigate={go} onLoginSuccess={() => setIsAdminAuthenticated(true)} />)}
     </div>
   )
 }
