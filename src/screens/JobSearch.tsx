@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import BackButton from '../components/BackButton'
 
 interface Props {
   onNavigate: (s: string) => void
