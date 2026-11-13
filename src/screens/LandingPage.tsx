@@ -108,7 +108,7 @@ export default function LandingPage({ onNavigate }: Props) {
           <button className="hover:text-white transition-colors">Para Unis</button>
         </div>
         
-        {/* BOTÕES CORRIGIDOS AQUI */}
+        {/* BOTÕES CORRIGIDOS */}
         <div className="flex items-center gap-3">
           <button onClick={() => onNavigate('student-login')} className="text-sm px-4 py-2 rounded-full border transition-colors"
             style={{ borderColor: 'var(--color-muted)', color: 'var(--color-muted)' }}>
