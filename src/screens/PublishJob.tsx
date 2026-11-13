@@ -6,7 +6,7 @@ interface Props {
 }
 
 const AREAS = ['Tecnologia', 'Engenharia', 'Administração', 'Marketing', 'Direito', 'Design', 'Saúde', 'Finanças', 'Recursos Humanos', 'Logística']
-const TYPES = ['Estágio', 'Trainee', 'CLT', 'PJ', 'Temporário']
+const TYPES = ['Estágio', 'Trainee', 'CLT', 'PJ', 'Temporário']de
 const MODES = ['Presencial', 'Híbrido', 'Remoto']
 const INTERVIEW_FORMATS = ['On-line', 'Presencial', 'On-line ou presencial']
 const LEVELS = ['Sem experiência', '6 meses', '1 ano', '2 anos+']
@@ -29,7 +29,6 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
   const [salaryMin, setSalaryMin] = useState('')
   const [salaryMax, setSalaryMax] = useState('')
   const [interviewFormat, setInterviewFormat] = useState('')
-  const [description, setDescription] = useState('')
   const [requirements, setRequirements] = useState('')
   const [level, setLevel] = useState('')
   const [selectedBenefits, setSelectedBenefits] = useState<string[]>([])
