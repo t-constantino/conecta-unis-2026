@@ -64,7 +64,7 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'create_job',
-          empresa_id: companyId || 1, // fallback para teste se necessário
+          empresa_id: companyId || 1,
           titulo: title,
           area,
           tipo: type,
@@ -268,10 +268,6 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
               </FormRow>
             </SectionCard>
 
-
-              </FormRow>
-            </SectionCard>
-
             <div className="flex justify-end">
               <button onClick={() => setStep(2)}
                 disabled={!title || !area || !type || !mode || !salaryValid || !interviewFormat}
@@ -453,14 +449,6 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
                 <Tag>{interviewFormat}</Tag>
               </div>
 
-              {description && (
-                <div className="mb-6">
-                  <div className="text-xs font-semibold tracking-widest uppercase mb-2"
-                    style={{ color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>Sobre a vaga</div>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>{description}</p>
-                </div>
-              )}
-
               <div className="mb-6">
                 <div className="text-xs font-semibold tracking-widest uppercase mb-2"
                   style={{ color: 'var(--color-muted-foreground)', fontFamily: 'var(--font-mono)' }}>Microdesafio prático</div>
@@ -503,7 +491,7 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
                 ['Segmentação', university || 'Todas as universidades'],
                 ['Prazo de feedback', 'Até 7 dias'],
                 ['Formato de entrevista', interviewFormat],
-                ['Faixa salarial', salaryMin && salaryMax ? `R$ ${parseInt(salaryMin).toLocaleString('pt-BR')}–${parseInt(salaryMax).toLocaleString('pt-BR')}/mês` : 'Obrigatória'],
+                ['Faixa salarial', salaryMin && salaryMax ? `R$ ${parseInt(salaryMin).toLocaleString('pt-BR')}–{parseInt(salaryMax).toLocaleString('pt-BR')}/mês` : 'Obrigatória'],
                 ['Vídeo de apresentação', 'Opcional · até 60 segundos'],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between px-5 py-3 text-sm"
