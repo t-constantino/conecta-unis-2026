@@ -12,13 +12,18 @@ import AdminLogin from './screens/AdminLogin'
 type Screen = 'landing' | 'jobs' | 'profile' | 'dashboard' | 'student-login' | 'student-register' | 'company-login' | 'publish' | 'apply' | 'admin' | 'admin-login'
 type UserRole = 'visitor' | 'aluno' | 'empresa' | 'admin'
 
+interface NavItem {
+  key: Screen
+  label: string
+}
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>('landing')
   const [userRole, setUserRole] = useState<UserRole>('visitor')
   const go = (s: string) => setScreen(s as Screen)
 
   // Define os botões da barra flutuante com base em quem está logado
-  const getNavItems = () => {
+  const getNavItems = (): NavItem[] => {
     switch (userRole) {
       case 'aluno':
         return [
@@ -69,7 +74,7 @@ export default function App() {
                 if (key === 'admin' && userRole !== 'admin') {
                   setScreen('admin-login')
                 } else {
-                  setScreen(key as Screen)
+                  setScreen(key)
                 }
               }}
               className="px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap"
