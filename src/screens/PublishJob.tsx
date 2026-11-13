@@ -268,11 +268,7 @@ export default function PublishJob({ onNavigate, companyId }: Props) {
               </FormRow>
             </SectionCard>
 
-            <SectionCard title="Descrição da vaga">
-              <FormRow label="Descrição completa *">
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Descreva as responsabilidades, o time, o ambiente de trabalho e o impacto que o candidato terá…"
-                  rows={5} className="fi resize-none" />
+
               </FormRow>
             </SectionCard>
 
