@@ -18,7 +18,6 @@ export default async function handler(req: any, res: any) {
     salario_min,
     salario_max,
     formato_entrevista,
-    descricao,
     requisitos,
     nivel,
     vagas_disponiveis,
