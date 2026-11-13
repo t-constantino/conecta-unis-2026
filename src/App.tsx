@@ -23,18 +23,16 @@ export default function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false)
   const go = (s: string) => setScreen(s as Screen)
 
-  // Define os botões da barra inferior de acordo com o papel do usuário
+  // Define os botões da barra inferior de acordo com o papel do usuário (sem "Página Inicial" para logados)
   const getNavItems = (): NavItem[] => {
     switch (userRole) {
       case 'aluno':
         return [
-          { key: 'landing', label: 'Página Inicial' },
           { key: 'jobs', label: 'Vagas' },
           { key: 'profile', label: 'Perfil' },
         ]
       case 'empresa':
         return [
-          { key: 'landing', label: 'Página Inicial' },
           { key: 'dashboard', label: 'Painel Empresa' },
         ]
       case 'admin':
@@ -95,17 +93,17 @@ export default function App() {
         )}
       </div>
 
-      {screen === 'landing'           && <LandingPage onNavigate={go} />}
-      {screen === 'student-login'     && <LoginPage role="aluno" initialMode="login" onNavigate={(s) => { setUserRole('aluno'); go(s); }} />}
-      {screen === 'student-register'  && <LoginPage role="aluno" initialMode="cadastro" onNavigate={(s) => { setUserRole('aluno'); go(s); }} />}
-      {screen === 'company-login'     && <LoginPage role="empresa" onNavigate={(s) => { setUserRole('empresa'); go(s); }} />}
-      {screen === 'jobs'              && <JobSearch onNavigate={go} />}
-      {screen === 'profile'           && <StudentProfile onNavigate={go} />}
-      {screen === 'dashboard'         && <CompanyDashboard onNavigate={go} />}
-      {screen === 'publish'           && <PublishJob onNavigate={go} />}
-      {screen === 'apply'             && <JobApplication onNavigate={go} />}
-      {screen === 'admin-login'       && <AdminLogin onNavigate={go} onLoginSuccess={() => { setIsAdminAuthenticated(true); setUserRole('admin'); }} />}
-      {screen === 'admin'             && (isAdminAuthenticated ? <AdminDashboard onNavigate={go} /> : <AdminLogin onNavigate={go} onLoginSuccess={() => { setIsAdminAuthenticated(true); setUserRole('admin'); }} />)}
+      {screen === 'landing'            && <LandingPage onNavigate={go} />}
+      {screen === 'student-login'      && <LoginPage role="aluno" initialMode="login" onNavigate={(s) => { setUserRole('aluno'); go(s); }} />}
+      {screen === 'student-register'   && <LoginPage role="aluno" initialMode="cadastro" onNavigate={(s) => { setUserRole('aluno'); go(s); }} />}
+      {screen === 'company-login'      && <LoginPage role="empresa" onNavigate={(s) => { setUserRole('empresa'); go(s); }} />}
+      {screen === 'jobs'               && <JobSearch onNavigate={go} />}
+      {screen === 'profile'            && <StudentProfile onNavigate={go} />}
+      {screen === 'dashboard'          && <CompanyDashboard onNavigate={go} />}
+      {screen === 'publish'            && <PublishJob onNavigate={go} />}
+      {screen === 'apply'              && <JobApplication onNavigate={go} />}
+      {screen === 'admin-login'        && <AdminLogin onNavigate={go} onLoginSuccess={() => { setIsAdminAuthenticated(true); setUserRole('admin'); }} />}
+      {screen === 'admin'              && (isAdminAuthenticated ? <AdminDashboard onNavigate={go} /> : <AdminLogin onNavigate={go} onLoginSuccess={() => { setIsAdminAuthenticated(true); setUserRole('admin'); }} />)}
     </div>
   )
 }
