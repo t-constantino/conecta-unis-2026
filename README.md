@@ -20,7 +20,7 @@ Para testar as funcionalidades disponíveis na demonstração do painel administ
 
 ## Avisos Importantes de Segurança & Privacidade
 
-> 1. **E-mail Fictício:** O endereço `talles.admin@gmail.com` informado acima é meramente ilustrativo para o ambiente de demonstração e não existe na vida real.
+> 1. **E-mail Fictício:** O endereço `talles.admin@gmail.com` informado acima é fictício, elaborado apenas para o ambiente de demonstração e não existe na vida real.
 >
 > 2. **Proteção de Dados:** Este ambiente é estritamente de demonstração (Demo). **NÃO insira dados reais, pessoais ou sensíveis** em nenhum campo na seção Fale Conosco ou em qualquer outro formulário.
 >
