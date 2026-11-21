@@ -26,7 +26,7 @@ Para testar as funcionalidades disponíveis na demonstração do painel administ
 
 ## Funcionalidades Disponíveis na Demo
 
-- [x] **Painel Administrativo da Empresa:** Visualização das vagas cadastradas no ambiente de teste.
+- [x] **Painel Administrativo da Empresa:** Visualização de mensagens recebidas e contas cadastradas no ambiente de teste.
 - [x] **Publicação Dinâmica de Vagas:** Formulário estruturado em etapas com validações de faixa salarial, formato de entrevista e requisitos.
 - [x] **Microdesafios Práticos:** Inclusão de testes objetivos com limite de tempo padrão.
 - [x] **Compromisso de Feedback:** Configuração de retorno automático para candidatos em até 7 dias.
