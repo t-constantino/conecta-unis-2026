@@ -42,4 +42,5 @@ Para testar as funcionalidades disponíveis na demonstração do painel administ
 
 ## Contexto Acadêmico e Uso
 
+Desenvolvimento e documentação apoiados com auxílio de IA (Gemini) para revisão de código, correção de erros de build e organização da documentação.
 Projeto de extensão universitária desenvolvido para apresentação, avaliação e demonstração tecnológica, sem aprovação oficial para operação real.
