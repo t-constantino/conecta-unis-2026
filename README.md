@@ -21,8 +21,8 @@ Para testar as funcionalidades disponíveis na demonstração do painel administ
 ## Avisos Importantes de Segurança & Privacidade
 
 > 1. **E-mail Fictício:** O endereço `talles.admin@gmail.com` informado acima é meramente ilustrativo para o ambiente de demonstração e não existe na vida real.
-> 2. **Proteção de Dados:** Este ambiente é estritamente de demonstração (Demo). **NÃO insira dados reais, pessoais ou sensíveis** (como CPF, senhas pessoais, documentos verdadeiros) em nenhum formulário ou campo da aplicação.
-> 3. **Cadastro de Contas:** Caso deseje cadastrar novas contas ou novas vagas para teste, utilize sempre dados fictícios ou genéricos.
+> 2. **Proteção de Dados:** Este ambiente é estritamente de demonstração (Demo). **NÃO insira dados reais, pessoais ou sensíveis** em nenhum campo na seção Fale Conosco.
+> 3. **Cadastro de Contas:** Caso deseje cadastrar novas contas ou novas vagas para teste, utilize sempre dados fictícios.
 
 ## Funcionalidades Disponíveis na Demo
 
