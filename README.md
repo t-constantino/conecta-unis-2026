@@ -2,7 +2,7 @@
 
 Plataforma conceitual e de demonstração voltada à conexão entre empresas e alunos do Grupo Unis, focada em vagas de estágio, trainees e microdesafios práticos para simplificar processos seletivos.
 
-Desenvolvido como **projeto de extensão do curso de ADS** para fins de **apresentação e avaliação acadêmica**.
+Desenvolvido como **projeto de extensão do curso de ADS da Faculdade Unis São Lourenço** para fins de **apresentação e avaliação acadêmica**.
 
 > **Status do projeto:** Este projeto é **apenas uma demonstração (demo)**. O site **ainda não funciona de verdade de forma completa ou eficaz** e **não foi aprovado para ser oficializado**. Atualmente, apenas a visualização de contas criadas e mensagens funciona no ambiente, enquanto o fluxo de vagas no banco de dados e a exibição na lista de vagas publicadas ainda não funcionam direito.
 
